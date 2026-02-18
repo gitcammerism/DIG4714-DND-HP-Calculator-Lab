@@ -37,28 +37,9 @@ public class Character : MonoBehaviour
     // using array for con modifiers, where index is the constitution score
     protected int[] constMods = { -5, -4, -4, -3, -3, -2, -2, -1, -1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10 };
 
-    // if someone tries to call character with no parameters
-    public Character()
+    public virtual void DisplayInfo()
     {
-        charName = "No name";
-        constitution = 0;
-        race = "None";
-        feat = "none";
-        hpStyle = "none";
-        level = 0;
-        charClass = "none";
-    }
-
-    // constructor with all information
-    public Character(string charName, int constitution, string race, string feat, string hpStyle, int level, string charClass)
-    {
-        this.charName = charName;
-        this.constitution = constitution;
-        this.race = race;
-        this.feat = feat;
-        this.hpStyle = hpStyle;
-        this.level = level;
-        this.charClass = charClass;
+        Debug.Log("Character Name: " + charName);
     }
 
 

@@ -6,10 +6,20 @@ using UnityEngine;
 public class CharacterHp : Character
 {
     protected int hp;
+    // private readonly Character _character;
 
+    // constructor
     public CharacterHp(string charName, int constitution, string race, string feat, string hpStyle, int level, string charClass)
     {
         hp = 0;
+        this.charName = charName;
+        this.constitution = constitution;
+        this.race = race;
+        this.feat = feat;
+        this.hpStyle = hpStyle;
+        this.level = level;
+        this.charClass = charClass;
+
     }
 
     // calculate averaged hp
@@ -24,7 +34,7 @@ public class CharacterHp : Character
     // calculate rolled hp
     private int rolledHp()
     {
-        for(int i = 0; i < level; i++)
+        for (int i = 0; i < level; i++)
         {
             hp += UnityEngine.Random.Range(1, raceHitDie[charClass] + 1) + constMods[constitution - 1];
         }
@@ -38,9 +48,9 @@ public class CharacterHp : Character
         return (int)Math.Ceiling((hitDie + 1) / 2);
     }
 
+    // add HP based on Dwarf, Orc, or Goliath
     private int raceHp()
     {
-        // add HP based on Dwarf, Orc, or Goliath
         int additionalHp = 0;
         switch (race)
         {
@@ -57,9 +67,9 @@ public class CharacterHp : Character
         return additionalHp;
     }
 
+    // add HP based on Tough or Stout feat
     private int featHp()
     {
-        // add HP based on Tough or Stout feat
         int additionalHp = 0;
         switch (feat)
         {
@@ -76,10 +86,10 @@ public class CharacterHp : Character
         return additionalHp;
     }
 
-    // the public method to be called during instantiation; calculates the total hp
+    // the method to be called to calculate the total HP
     public int calculateHp()
     {
-        switch(hpStyle)
+        switch (hpStyle)
         {
             case "averaged":
                 hp = averagedHp() + raceHp() + featHp();
@@ -91,7 +101,15 @@ public class CharacterHp : Character
                 Debug.Log("Invalid HP style.");
                 break;
         }
-        
+
         return hp;
     }
+
+    // overrides Character's DisplayInfo() and calls calculateHp() and prints it
+    public override void DisplayInfo()
+    {
+        base.DisplayInfo();
+        Debug.Log($"HP: {calculateHp()}");
+    }
+
 }
